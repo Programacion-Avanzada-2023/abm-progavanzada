@@ -9,6 +9,7 @@ package modelo;
  * @author Usuario
  */
 public class Auto {
+
     int id;
     String Marca;
     String modelo;

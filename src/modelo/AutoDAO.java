@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoDAO {
+
     Conexion conectar = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -33,53 +34,55 @@ public class AutoDAO {
         }
         return datos;
     }
-    public int agregar(Auto a){
-        String sql="insert into automovil (Marca,Modelo,Patente) values(?,?,?)";
-        try{
-            con=conectar.getConnection();
-            ps=con.prepareStatement(sql);
-            ps.setString(1,a.getMarca());
-            ps.setString(2,a.getModelo());
-            ps.setString(3,a.getPatente());
+
+    public int agregar(Auto a) {
+        String sql = "insert into automovil (Marca,Modelo,Patente) values(?,?,?)";
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, a.getMarca());
+            ps.setString(2, a.getModelo());
+            ps.setString(3, a.getPatente());
             ps.executeUpdate();
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
         return 1;
     }
-    public int Actualizar(Auto a){
-        int r=0;
-        String sql="update automovil set Marca=?, Modelo=?, Patente=? where id=?";
-        try{
-            con=conectar.getConnection();
-            ps=con.prepareStatement(sql);
-            ps.setString(1,a.getMarca());
-            ps.setString(2,a.getModelo());
-            ps.setString(3,a.getPatente());
-            ps.setInt(4,a.getId());
-            r=ps.executeUpdate();
-            if (r==1){
+
+    public int Actualizar(Auto a) {
+        int r = 0;
+        String sql = "update automovil set Marca=?, Modelo=?, Patente=? where id=?";
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, a.getMarca());
+            ps.setString(2, a.getModelo());
+            ps.setString(3, a.getPatente());
+            ps.setInt(4, a.getId());
+            r = ps.executeUpdate();
+            if (r == 1) {
                 return 1;
-            }else{
+            } else {
                 return 0;
             }
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
         return 1;
-        
+
     }
-   public void delete(int id) {
-    String sql = "delete from automovil where id=?";
-    try {
-        con = conectar.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ps.executeUpdate();
-    } catch (Exception e) {
-        e.printStackTrace();
+
+    public void delete(int id) {
+        String sql = "delete from automovil where id=?";
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
-   
 
 }
