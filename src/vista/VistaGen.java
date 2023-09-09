@@ -4,6 +4,11 @@
  */
 package vista;
 
+import controlador.MarcaController;
+import controlador.ModeloController;
+import java.awt.CardLayout;
+import vista.subViews.*;
+
 /**
  *
  * @author Usuario
@@ -15,6 +20,20 @@ public class VistaGen extends javax.swing.JFrame {
      */
     public VistaGen() {
         initComponents();
+        
+        // Init components
+        MarcaView marcaView = new MarcaView();
+        ModeloView modeloView = new ModeloView();
+        VehiculoView vehiculoView = new VehiculoView();
+        PersonaView personaView = new PersonaView();
+        
+        MarcaController mC = new MarcaController(marcaView);
+        ModeloController mdC = new ModeloController(modeloView);
+        
+        displayPanel.add(marcaView, "MarcaView");
+        displayPanel.add(modeloView, "ModeloView");
+        displayPanel.add(vehiculoView, "VehiculoView");
+        displayPanel.add(personaView, "PersonaView");
     }
 
     /**
@@ -26,35 +45,31 @@ public class VistaGen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        modelSelector = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        brandId = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        marcaViewFrame = new javax.swing.JFrame();
+        brandInsert = new javax.swing.JButton();
+        brandList = new javax.swing.JButton();
+        brandSave = new javax.swing.JButton();
         brandName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         brandYear = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         modelTable = new javax.swing.JTable();
-        brandInsert = new javax.swing.JButton();
-        brandList = new javax.swing.JButton();
-        brandSave = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        displayPanel = new javax.swing.JPanel();
+        modelSelector = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        brandInsert.setText("Insertar");
+        brandInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brandInsertActionPerformed(evt);
+            }
+        });
 
-        modelSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marca", "Modelo", "Cliente", "Tecnico", "Vehiculo" }));
+        brandList.setText("Listar");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel1.setText("Sección de Edición");
-
-        brandId.setEditable(false);
-
-        jLabel2.setText("ID");
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        brandSave.setText("Guardar Cambios");
 
         jLabel3.setText("Nombre");
 
@@ -88,24 +103,13 @@ public class VistaGen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(modelTable);
 
-        brandInsert.setText("Insertar");
-        brandInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brandInsertActionPerformed(evt);
-            }
-        });
-
-        brandList.setText("Listar");
-
-        brandSave.setText("Guardar Cambios");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout marcaViewFrameLayout = new javax.swing.GroupLayout(marcaViewFrame.getContentPane());
+        marcaViewFrame.getContentPane().setLayout(marcaViewFrameLayout);
+        marcaViewFrameLayout.setHorizontalGroup(
+            marcaViewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(marcaViewFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(marcaViewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(brandName)
                     .addComponent(jLabel4)
@@ -114,16 +118,16 @@ public class VistaGen extends javax.swing.JFrame {
                     .addComponent(brandList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(brandSave, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        marcaViewFrameLayout.setVerticalGroup(
+            marcaViewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(marcaViewFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(marcaViewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(marcaViewFrameLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(brandName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,6 +144,19 @@ public class VistaGen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Sección de Edición");
+
+        displayPanel.setLayout(new java.awt.CardLayout());
+
+        modelSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marca", "Modelo", "Cliente/Tecnico", "Vehiculo" }));
+        modelSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modelSelectorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -147,28 +164,22 @@ public class VistaGen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(displayPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(brandId, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
-                .addContainerGap(486, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(modelSelector, 0, 824, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(5, 5, 5)
-                .addComponent(brandId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modelSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(displayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -176,10 +187,8 @@ public class VistaGen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(modelSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -187,14 +196,47 @@ public class VistaGen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modelSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Cambia la vista actual del display de la vista principal, dependiendo del
+     * modelo seleccionado.
+     *
+     * @param name
+     */
+    private void setCurrentDisplay(String name) {
+        CardLayout layout = (CardLayout) displayPanel.getLayout();
+        
+        switch (name) {
+            case "Marca":
+                // Inicializar panel de Marca y embebirlo.
+                layout.show(displayPanel, "MarcaView");
+                break;
+            case "Modelo":
+                // Inicializar panel de Modelo y embebirlo.
+                layout.show(displayPanel, "ModeloView");
+                break;
+            case "Cliente/Tecnico":
+                // Inicializar panel de Persona y embebirlo.
+                layout.show(displayPanel, "PersonaView");
+                break;
+            case "Vehiculo":
+                // Inicializar panel de Vehiculo y embebirlo.
+                layout.show(displayPanel, "VehiculoView");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void modelSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelSelectorActionPerformed
+        setCurrentDisplay(modelSelector.getSelectedItem().toString());
+    }//GEN-LAST:event_modelSelectorActionPerformed
 
     private void brandInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandInsertActionPerformed
         // TODO add your handling code here:
@@ -226,7 +268,7 @@ public class VistaGen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VistaGen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -236,19 +278,18 @@ public class VistaGen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField brandId;
     private javax.swing.JButton brandInsert;
     private javax.swing.JButton brandList;
     private javax.swing.JTextField brandName;
     private javax.swing.JButton brandSave;
     private javax.swing.JTextField brandYear;
+    private javax.swing.JPanel displayPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JFrame marcaViewFrame;
     private javax.swing.JComboBox<String> modelSelector;
     private javax.swing.JTable modelTable;
     // End of variables declaration//GEN-END:variables

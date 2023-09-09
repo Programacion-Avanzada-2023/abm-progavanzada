@@ -11,6 +11,11 @@ public class Marca {
         this.nombre = nombre;
         this.origen = origen;
     }
+    public Marca(String nombre, String origen) {
+        this.id = -1;
+        this.nombre = nombre;
+        this.origen = origen;
+    }
 
     public int getId() {
         return id;
