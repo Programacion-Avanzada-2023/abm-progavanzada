@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/vista/subViews/PersonaView.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/vista/subViews/MarcaView.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/vista/subViews/VehiculoView.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/controlador/MarcaController.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/ModeloEntity.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/controlador/ModeloController.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/Modelo.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/MarcaEntity.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/vista/subViews/ModeloView.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/vista/VistaGen.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/Automovil.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/Marca.java</file>
+            <file>file:/C:/Users/mazal/Documents/GitHub/abm-progavanzada/src/modelo/Persona.java</file>
+        </group>
     </open-files>
 </project-private>
