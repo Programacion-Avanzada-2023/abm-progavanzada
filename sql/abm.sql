@@ -176,16 +176,12 @@ ALTER TABLE `persona`
 --
 ALTER TABLE `automovil`
   ADD CONSTRAINT `automovil_cliente` FOREIGN KEY (`cliente`) REFERENCES `persona` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `automovil_ibfk_1` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`),
-  ADD CONSTRAINT `automovil_ibfk_2` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`),
-  ADD CONSTRAINT `automovil_ibfk_3` FOREIGN KEY (`cliente`) REFERENCES `persona` (`id`),
   ADD CONSTRAINT `automovil_modelo` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `modelo`
 --
 ALTER TABLE `modelo`
-  ADD CONSTRAINT `modelo_ibfk_1` FOREIGN KEY (`marca`) REFERENCES `marca` (`id`),
   ADD CONSTRAINT `modelo_marca` FOREIGN KEY (`marca`) REFERENCES `marca` (`id`) ON DELETE CASCADE;
 COMMIT;
 
