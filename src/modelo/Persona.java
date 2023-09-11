@@ -1,24 +1,31 @@
 package modelo;
 
-enum Rol {
-    CLIENT,
-    TECHNICIAN,
-}
-
 public class Persona {
 
     private int id;
     private String nombre;
     private String apellido;
     private int dni;
-    private Rol rol;
+    // 1 = Tecnico, 0 = Cliente
+    private int rol;
 
-    public Persona(int id, String nombre, String apellido, int dni, Rol rol) {
+    public Persona(int id, String nombre, String apellido, int dni, int rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.rol = rol;
+    }
+
+    public Persona(String nombre, String apellido, int dni, int rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.rol = rol;
+    }
+    
+    public String getNombreyApellido() {
+        return this.apellido + ", " + this.nombre;
     }
 
     public int getId() {
@@ -49,11 +56,11 @@ public class Persona {
         this.dni = dni;
     }
 
-    public Rol getRol() {
+    public int getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(int rol) {
         this.rol = rol;
     }
 

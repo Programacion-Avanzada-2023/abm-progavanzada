@@ -6,82 +6,83 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModeloEntity {
+public class PersonaEntity {
+
     private Connection conn = new Conexion().getConnection();
 
-    public List<Modelo> buscarTodos() {
+    public List<Persona> buscarTodos() {
         // Declarar query.
-        String query = "SELECT md.id, md.nombre, md.year, m.nombre AS marca, m.origen AS origen, m.id AS marcaId FROM modelo md INNER JOIN marca m ON md.marca = m.id ORDER BY md.id;";
-        
+        String query = "SELECT * FROM persona ORDER BY id;";
+
         try {
             // Make the query.
             PreparedStatement prepared = conn.prepareStatement(query);
-            
+
             // Executed
             ResultSet rs = prepared.executeQuery();
-            
-            List<Modelo> result = new ArrayList<>();
+
+            List<Persona> result = new ArrayList<>();
             while (rs.next()) {
                 // Crear entidad.
-                Marca marca = new Marca(rs.getInt("marcaId"), rs.getString("marca"), rs.getString("origen"));
-                
-                Modelo modelo = new Modelo(rs.getInt("id"), marca, rs.getString("nombre"), rs.getInt("year"));
-                result.add(modelo);
+                Persona persona = new Persona(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getInt("rol"));
+                result.add(persona);
             }
-            
+
             return result;
         } catch (Exception e) {
             System.out.println(e);
-            return new ArrayList<Modelo>();
+            return new ArrayList<Persona>();
         }
     }
-    
-    public void agregar(Modelo modelo) {
+
+    public void agregar(Persona persona) {
         try {
             // Build query.
-            String query = "INSERT INTO modelo (nombre, marca, year) VALUES (?, ?, ?);";
-            
+            String query = "INSERT INTO persona (nombre, apellido, dni, rol) VALUES (?, ?, ?, ?);";
+
             // Make the query.
             PreparedStatement prepared = conn.prepareStatement(query);
-            prepared.setString(1, modelo.getNombre());
-            prepared.setInt(2, modelo.getMarca().getId());
-            prepared.setInt(3, modelo.getYear());
-            
+            prepared.setString(1, persona.getNombre());
+            prepared.setString(2, persona.getApellido());
+            prepared.setInt(3, persona.getDni());
+            prepared.setInt(4, persona.getRol());
+
             // Executed
             prepared.execute();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    public void actualizar(int id, String nombre, int marca, int year) {
+
+    public void actualizar(int id, String nombre, String apellido, int dni, int rol) {
         try {
             // Build query.
-            String query = "UPDATE modelo SET nombre = ?, marca = ?, year = ? WHERE id = ?;";
-            
+            String query = "UPDATE persona SET nombre = ?, apellido = ?, dni = ?, rol = ? WHERE id = ?;";
+
             // Make the query.
             PreparedStatement prepared = conn.prepareStatement(query);
             prepared.setString(1, nombre);
-            prepared.setInt(2, marca);
-            prepared.setInt(3, year);
-            prepared.setInt(4, id);
-            
+            prepared.setString(2, apellido);
+            prepared.setInt(3, dni);
+            prepared.setInt(4, rol);
+            prepared.setInt(5, id);
+
             // Executed
             prepared.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public void borrar(int id) {
         try {
             // Build query.
-            String query = "DELETE FROM modelo WHERE id = ?;";
-            
+            String query = "DELETE FROM persona WHERE id = ?;";
+
             // Make the query.
             PreparedStatement prepared = conn.prepareStatement(query);
             prepared.setInt(1, id);
-            
+
             // Executed
             prepared.execute();
         } catch (Exception e) {

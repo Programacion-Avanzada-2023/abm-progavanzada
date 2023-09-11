@@ -13,6 +13,16 @@ public class Modelo {
         this.nombre = nombre;
         this.year = year;
     }
+    
+    public Modelo(Marca marca, String nombre, int year) {
+        this.marca = marca;
+        this.nombre = nombre;
+        this.year = year;
+    }
+    
+    public String getModeloyMarca() {
+        return this.marca.getNombre() + " - " + this.nombre;
+    }
 
     public int getId() {
         return this.id;

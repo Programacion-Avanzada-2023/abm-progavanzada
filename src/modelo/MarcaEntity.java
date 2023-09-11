@@ -11,7 +11,7 @@ public class MarcaEntity {
 
     public List<Marca> buscarTodos() {
         // Declarar query.
-        String query = "SELECT * FROM marca;";
+        String query = "SELECT * FROM marca ORDER BY id;";
         
         try {
             // Make the query.

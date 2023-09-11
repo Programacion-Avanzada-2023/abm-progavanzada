@@ -13,6 +13,12 @@ public class Automovil {
         this.patente = patente;
         this.cliente = cliente;
     }
+    
+     public Automovil(Modelo modelo, String patente, Persona cliente) {
+        this.modelo = modelo;
+        this.patente = patente;
+        this.cliente = cliente;
+    }
 
     public int getId() {
         return id;
