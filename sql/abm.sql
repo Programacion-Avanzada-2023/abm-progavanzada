@@ -117,8 +117,8 @@ INSERT INTO `persona` (`id`, `nombre`, `apellido`, `dni`, `rol`) VALUES
 --
 ALTER TABLE `automovil`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `modelo` (`modelo`),
-  ADD KEY `cliente` (`cliente`);
+  ADD KEY `automovil_modelo` (`modelo`),
+  ADD KEY `automovil_cliente` (`cliente`);
 
 --
 -- Indexes for table `marca`
@@ -131,7 +131,7 @@ ALTER TABLE `marca`
 --
 ALTER TABLE `modelo`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `marca` (`marca`);
+  ADD KEY `modelo_marca` (`marca`);
 
 --
 -- Indexes for table `persona`
@@ -147,25 +147,25 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT for table `automovil`
 --
 ALTER TABLE `automovil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `modelo`
 --
 ALTER TABLE `modelo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -175,15 +175,18 @@ ALTER TABLE `persona`
 -- Constraints for table `automovil`
 --
 ALTER TABLE `automovil`
+  ADD CONSTRAINT `automovil_cliente` FOREIGN KEY (`cliente`) REFERENCES `persona` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `automovil_ibfk_1` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`),
   ADD CONSTRAINT `automovil_ibfk_2` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`),
-  ADD CONSTRAINT `automovil_ibfk_3` FOREIGN KEY (`cliente`) REFERENCES `persona` (`id`);
+  ADD CONSTRAINT `automovil_ibfk_3` FOREIGN KEY (`cliente`) REFERENCES `persona` (`id`),
+  ADD CONSTRAINT `automovil_modelo` FOREIGN KEY (`modelo`) REFERENCES `modelo` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `modelo`
 --
 ALTER TABLE `modelo`
-  ADD CONSTRAINT `modelo_ibfk_1` FOREIGN KEY (`marca`) REFERENCES `marca` (`id`);
+  ADD CONSTRAINT `modelo_ibfk_1` FOREIGN KEY (`marca`) REFERENCES `marca` (`id`),
+  ADD CONSTRAINT `modelo_marca` FOREIGN KEY (`marca`) REFERENCES `marca` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
