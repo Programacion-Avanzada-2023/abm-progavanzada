@@ -6,12 +6,19 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repositorio de Automovil.
+ *
+ * Todas las acciones contra la base de datos para Automovil estan aqui.
+ * @author mazal
+ */
 public class AutomovilEntity {
 
     private Connection conn = new Conexion().getConnection();
 
     public List<Automovil> buscarTodos() {
         // Declarar query.
+        // Busca a todos los automoviles existentes.
         String query = "SELECT "
                 + "a.id, a.patente,"
                 + "md.id AS modeloId, md.nombre AS modelo, md.year,"

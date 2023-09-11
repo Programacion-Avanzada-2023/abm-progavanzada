@@ -22,15 +22,23 @@ import modelo.PersonaEntity;
 import vista.subViews.PersonaView;
 
 /**
+ * Controlador encargado de administrar acciones dentro de la vista de Persona
+ * (Cliente y Tecnicos) en el ABM.
  *
  * @author mazal
  */
 public class PersonaController implements ActionListener {
 
+    // Vista principal que el controlador administra.
     private PersonaView view;
+
+    // Tabla dentro de la vista.
     private JTable table;
+
+    // Modelo de la tabla dentro de la vista.
     private DefaultTableModel model;
 
+    // Repositorio de Personas.
     private PersonaEntity repo = new PersonaEntity();
 
     // Listado de marcas disponibles, actualizado en cada re-render.
@@ -45,11 +53,15 @@ public class PersonaController implements ActionListener {
         this.rellenarComboBoxes();
     }
 
+    /**
+     * Rellena todos los JComboBox presentes en la vista con los datos pertinentes.
+     */
     public void rellenarComboBoxes() {
-        Vector roles = new Vector(){};
+        Vector roles = new Vector() {
+        };
         roles.add("Cliente");
         roles.add("Tecnico");
-        
+
         // Rellenar los combobox de la columna de "Rol" en la tabla.
         JComboBox comboRol = new JComboBox();
         DefaultComboBoxModel rolModel = (DefaultComboBoxModel) comboRol.getModel();
@@ -145,7 +157,7 @@ public class PersonaController implements ActionListener {
             if (ValidacionesHelper.validarStringLongitudSinNumeros(nombre) && ValidacionesHelper.validarStringLongitudSinNumeros(apellido)
                     && ValidacionesHelper.validarDni(dni)) {
                 int rolInt = rol == "Cliente" ? 0 : 1;
-                
+
                 Persona persona = new Persona(id, nombre, apellido, Integer.parseInt(dni), rolInt);
                 personas.add(persona);
             } else {

@@ -30,17 +30,19 @@ public class VistaGen extends javax.swing.JFrame {
     public VistaGen() {
         initComponents();
         
-        // Init components
+        // Inicializar vistas dinamicas, como singletons.
         MarcaView marcaView = new MarcaView();
         ModeloView modeloView = new ModeloView();
         VehiculoView vehiculoView = new VehiculoView();
         PersonaView personaView = new PersonaView();
         
+        // Asignar sus controladores (singletons), pasando los singletons de las vistas.
         marcaController = new MarcaController(marcaView);
         modeloController = new ModeloController(modeloView);
         personaController = new PersonaController(personaView);
         vehiculoController = new VehiculoController(vehiculoView);
         
+        // Asignar vistas al panel principal.
         displayPanel.add(marcaView, "MarcaView");
         displayPanel.add(modeloView, "ModeloView");
         displayPanel.add(vehiculoView, "VehiculoView");

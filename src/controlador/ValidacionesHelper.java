@@ -8,6 +8,7 @@ import java.time.Year;
 import java.util.regex.Pattern;
 
 /**
+ * Clase helper estatica con metodos para validar campos y adaptar reglas de negocio.
  *
  * @author mazal
  */
@@ -15,6 +16,7 @@ public class ValidacionesHelper {
 
     /**
      * Valida que los campos de texto tengan menos de 32 caracteres y no tengan numeros.
+     * 
      * @param texto
      * @return 
      */
@@ -24,8 +26,9 @@ public class ValidacionesHelper {
 
     /**
      * Valida que un string sea solo de letras mayusculas y minsculas, permitiendo solo un '-' como caracter especial.
+     * 
      * @param texto
-     * @return 
+     * @return
      */
     private static boolean validarSoloLetras(String texto) {
         return Pattern.matches("[A-Za-z -]+", texto);
@@ -79,7 +82,7 @@ public class ValidacionesHelper {
      * @param texto Texto a validar
      * @param cant Cantidad de caracteres maxima
      *
-     * @returns boolean Esta bien o no.
+     * @return
      */
     private static boolean validarLongitudTexto(String texto, int cant) {
         return texto.length() < cant;

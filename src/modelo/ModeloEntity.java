@@ -6,6 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repositorio de Modelo.
+ *
+ * Todas las acciones contra la base de datos para Modelo estan aqui.
+ * @author mazal
+ */
 public class ModeloEntity {
     private Connection conn = new Conexion().getConnection();
 

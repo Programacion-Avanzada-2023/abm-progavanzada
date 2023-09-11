@@ -23,13 +23,20 @@ import modelo.ModeloEntity;
 import vista.subViews.ModeloView;
 
 /**
+ * Controlador encargado de administrar acciones dentro de la vista de Modelos
+ * en el ABM.
  *
  * @author mazal
  */
 public class ModeloController implements ActionListener {
 
+    // Vista principal que el controlador administra.
     private ModeloView view;
+
+    // Tabla dentro de la vista.
     private JTable table;
+
+    // Modelo de la tabla dentro de la vista.
     private DefaultTableModel model;
 
     private MarcaEntity repoMarca = new MarcaEntity();
@@ -55,6 +62,9 @@ public class ModeloController implements ActionListener {
         this.view.modelDelete.addActionListener(this);
     }
 
+    /**
+     * Rellena todos los JComboBox presentes en la vista con los datos pertinentes.
+     */
     public void rellenarComboBoxes() {
         marcas = this.repoMarca.buscarTodos();
 

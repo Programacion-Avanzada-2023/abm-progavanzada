@@ -6,6 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repositorio de Marca.
+ *
+ * Todas las acciones contra la base de datos para Marca estan aqui.
+ * @author mazal
+ */
 public class MarcaEntity {
     private Connection conn = new Conexion().getConnection();
 

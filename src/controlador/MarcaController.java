@@ -16,13 +16,20 @@ import modelo.MarcaEntity;
 import vista.subViews.MarcaView;
 
 /**
+ * Controlador encargado de administrar acciones dentro de la vista de Marcas en
+ * el ABM.
  *
  * @author mazal
  */
 public class MarcaController implements ActionListener {
 
+    // Vista principal que el controlador administra.
     private MarcaView view;
+
+    // Tabla dentro de la vista.
     private JTable table;
+
+    // Modelo de la tabla dentro de la vista.
     private DefaultTableModel model;
 
     private MarcaEntity repo = new MarcaEntity();

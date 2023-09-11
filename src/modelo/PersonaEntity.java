@@ -6,6 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repositorio de Persona.
+ *
+ * Todas las acciones contra la base de datos para Persona estan aqui.
+ * @author mazal
+ */
 public class PersonaEntity {
 
     private Connection conn = new Conexion().getConnection();

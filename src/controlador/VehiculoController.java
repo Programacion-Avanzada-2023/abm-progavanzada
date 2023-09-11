@@ -26,17 +26,29 @@ import modelo.PersonaEntity;
 import vista.subViews.VehiculoView;
 
 /**
+ * Controlador encargado de administrar acciones dentro de la vista de Vehiculos
+ * en el ABM.
  *
  * @author mazal
  */
 public class VehiculoController implements ActionListener {
 
+    // Vista principal que el controlador administra.
     private VehiculoView view;
+
+    // Tabla dentro de la vista.
     private JTable table;
+
+    // Modelo de la tabla dentro de la vista.
     private DefaultTableModel model;
 
+    // Repositorio de Modelos.
     private ModeloEntity repoModelo = new ModeloEntity();
+
+    // Repositorio de Personas.
     private PersonaEntity repoPersona = new PersonaEntity();
+
+    // Repositorio de Vehiculos.
     private AutomovilEntity repo = new AutomovilEntity();
 
     // Listado de modelos disponibles, actualizado en cada re-render.
@@ -62,7 +74,11 @@ public class VehiculoController implements ActionListener {
         this.view.vehicleDelete.addActionListener(this);
     }
 
+    /**
+     * Rellena todos los JComboBox presentes en la vista con los datos pertinentes.
+     */
     public void rellenarComboBoxes() {
+        // Buscar todos los modelos y personas disponibles en el contexto de la app.
         modelos = this.repoModelo.buscarTodos();
         personas = this.repoPersona.buscarTodos();
 
@@ -77,7 +93,7 @@ public class VehiculoController implements ActionListener {
             personaItems.add(persona.getNombreyApellido());
         }
 
-        // Cambiar el modelo del ComboBox en la lista de campos.
+        // Cambiar el modelo del ComboBox en la lista de campos, agregando los items de cada uno.
         DefaultComboBoxModel modelsModel = (DefaultComboBoxModel) this.view.modelsComboBox.getModel(),
                 personaModel = (DefaultComboBoxModel) this.view.clientsComboBox.getModel();
         modelsModel.removeAllElements();
@@ -102,7 +118,7 @@ public class VehiculoController implements ActionListener {
         comboPersonaModel.addAll(personaItems);
         comboPersona.setModel(comboPersonaModel);
 
-        // Obtener columna
+        // Obtener columnas de interes.
         TableColumnModel modeloTabla = table.getColumnModel();
         TableColumn columnaModelo = modeloTabla.getColumn(1), columnaCliente = modeloTabla.getColumn(3);
         columnaModelo.setCellEditor(new DefaultCellEditor(comboModelo));
@@ -169,6 +185,11 @@ public class VehiculoController implements ActionListener {
         this.rellenarTabla(vehiculos);
     }
 
+    /**
+     * Busca un modelo por su string formatteado de nombre + marca.
+     * @param modeloYMarca
+     * @return 
+     */
     private Modelo buscarModeloPorNombreYMarca(String modeloYMarca) {
         for (Modelo modelo : modelos) {
             if (modelo.getModeloyMarca().equals(modeloYMarca)) {
@@ -178,6 +199,11 @@ public class VehiculoController implements ActionListener {
         return null;
     }
 
+    /**
+     * Busca a una persona por su nombre y apellido formatteados.
+     * @param nombreYApellido
+     * @return 
+     */
     private Persona buscarPersonaPorNombreYApellido(String nombreYApellido) {
         for (Persona cliente : personas) {
             if (cliente.getNombreyApellido().equals(nombreYApellido)) {
@@ -236,7 +262,7 @@ public class VehiculoController implements ActionListener {
         // Buscar modelo y cliente.
         Modelo modeloDeVehiculo = this.buscarModeloPorNombreYMarca(modelo);
         Persona clienteDeVehiculo = this.buscarPersonaPorNombreYApellido(cliente);
-        
+
         Automovil vehiculo = new Automovil(modeloDeVehiculo, patente, clienteDeVehiculo);
 
         this.repo.agregar(vehiculo);
