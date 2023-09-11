@@ -9,3 +9,6 @@
 
 ## Prefacio
 Este repositorio representa un proyecto de ejemplo de un ABM integrado en Swing utilizando Hibernate como el ORM principal del proyecto.
+
+## Documentación
+La documentación del proyecto está disponible [aqui](https://github.com/Programacion-Avanzada-2023/abm-progavanzada/wiki).
