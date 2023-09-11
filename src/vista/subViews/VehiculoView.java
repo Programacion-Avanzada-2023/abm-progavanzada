@@ -4,17 +4,47 @@
  */
 package vista.subViews;
 
+import controlador.ValidacionesHelper;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
+
 /**
  *
  * @author mazal
  */
 public class VehiculoView extends javax.swing.JPanel {
 
+    private static final Color GREEN_BORDER_COLOR = new Color(0, 128, 0);
+    private static final Color RED_BORDER_COLOR = Color.RED;
+
+    private final Border greenBorder = BorderFactory.createLineBorder(GREEN_BORDER_COLOR, 2);
+    private final Border redBorder = BorderFactory.createLineBorder(RED_BORDER_COLOR, 2);
+
     /**
      * Creates new form MarcaView
      */
     public VehiculoView() {
         initComponents();
+        
+        this.vehicleTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void limpiarCampos() {
+        this.vehicleDomain.setText("");
+
+        this.vehicleDomain.setBorder(null);
+
+        this.vehicleInsert.setEnabled(false);
+    }
+
+    private void validarCamposParaInsercion() {
+        String patente = this.vehicleDomain.getText();
+
+        boolean sonValidos = ValidacionesHelper.validarFormatoPatente(patente);
+
+        this.vehicleInsert.setEnabled(sonValidos);
     }
 
     /**
@@ -28,33 +58,34 @@ public class VehiculoView extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        modelTable = new javax.swing.JTable();
-        brandInsert = new javax.swing.JButton();
-        brandList = new javax.swing.JButton();
-        brandSave = new javax.swing.JButton();
-        brandsComboBox = new javax.swing.JComboBox<>();
+        vehicleTable = new javax.swing.JTable();
+        modelsComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         vehicleDomain = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         clientsComboBox = new javax.swing.JComboBox<>();
+        vehicleInsert = new javax.swing.JButton();
+        vehicleSave = new javax.swing.JButton();
+        vehicleDelete = new javax.swing.JButton();
+        vehicleList = new javax.swing.JButton();
 
-        modelTable.setModel(new javax.swing.table.DefaultTableModel(
+        vehicleTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Modelo", "Marca", "Patente", "Cliente"
+                "ID", "Modelo", "Patente", "Cliente"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -65,24 +96,30 @@ public class VehiculoView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(modelTable);
-
-        brandInsert.setText("Insertar");
-        brandInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brandInsertActionPerformed(evt);
-            }
-        });
-
-        brandList.setText("Listar");
-
-        brandSave.setText("Guardar Cambios");
+        jScrollPane1.setViewportView(vehicleTable);
 
         jLabel1.setText("Modelo");
 
         jLabel2.setText("Patente");
 
+        vehicleDomain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                vehicleDomainKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Cliente");
+
+        vehicleInsert.setText("Insertar");
+        vehicleInsert.setEnabled(false);
+
+        vehicleSave.setText("Guardar Cambios");
+        vehicleSave.setEnabled(false);
+
+        vehicleDelete.setText("Borrar");
+        vehicleDelete.setEnabled(false);
+
+        vehicleList.setText("Listar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -90,16 +127,18 @@ public class VehiculoView extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(brandInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(brandList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(brandSave, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                    .addComponent(brandsComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(vehicleDomain)
-                    .addComponent(jLabel3)
-                    .addComponent(clientsComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(modelsComboBox, 0, 182, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(vehicleDomain)
+                        .addComponent(jLabel3)
+                        .addComponent(clientsComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(vehicleSave, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(vehicleInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
@@ -113,7 +152,7 @@ public class VehiculoView extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(3, 3, 3)
-                        .addComponent(brandsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(modelsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,12 +161,14 @@ public class VehiculoView extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clientsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(brandInsert)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(brandSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(brandList)))
+                        .addComponent(vehicleInsert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vehicleSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vehicleDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vehicleList)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -153,23 +194,28 @@ public class VehiculoView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void brandInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandInsertActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_brandInsertActionPerformed
+    private void vehicleDomainKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vehicleDomainKeyReleased
+        String valor = this.vehicleDomain.getText();
+
+        this.vehicleDomain.setBorder(ValidacionesHelper.validarFormatoPatente(valor) ? greenBorder : redBorder);
+
+        this.validarCamposParaInsercion();
+    }//GEN-LAST:event_vehicleDomainKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brandInsert;
-    private javax.swing.JButton brandList;
-    private javax.swing.JButton brandSave;
-    private javax.swing.JComboBox<String> brandsComboBox;
-    private javax.swing.JComboBox<String> clientsComboBox;
+    public javax.swing.JComboBox<String> clientsComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable modelTable;
-    private javax.swing.JTextField vehicleDomain;
+    public javax.swing.JComboBox<String> modelsComboBox;
+    public javax.swing.JButton vehicleDelete;
+    public javax.swing.JTextField vehicleDomain;
+    public javax.swing.JButton vehicleInsert;
+    public javax.swing.JButton vehicleList;
+    public javax.swing.JButton vehicleSave;
+    public javax.swing.JTable vehicleTable;
     // End of variables declaration//GEN-END:variables
 }

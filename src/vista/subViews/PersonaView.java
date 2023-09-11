@@ -4,17 +4,53 @@
  */
 package vista.subViews;
 
+import controlador.ValidacionesHelper;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
+
 /**
  *
  * @author mazal
  */
 public class PersonaView extends javax.swing.JPanel {
 
+    private static final Color GREEN_BORDER_COLOR = new Color(0, 128, 0);
+    private static final Color RED_BORDER_COLOR = Color.RED;
+
+    private final Border greenBorder = BorderFactory.createLineBorder(GREEN_BORDER_COLOR, 2);
+    private final Border redBorder = BorderFactory.createLineBorder(RED_BORDER_COLOR, 2);
+
     /**
      * Creates new form MarcaView
      */
     public PersonaView() {
         initComponents();
+        
+        this.personaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    private void validarCamposParaInsercion() {
+        String name = this.personName.getText(), surName = this.personSurname.getText(),
+                dni = this.personDni.getText();
+
+        boolean sonValidos = ValidacionesHelper.validarStringLongitudSinNumeros(name) && ValidacionesHelper.validarStringLongitudSinNumeros(surName)
+                && ValidacionesHelper.validarDni(dni);
+
+        this.personaInsert.setEnabled(sonValidos);
+    }
+
+    public void limpiarCampos() {
+        this.personName.setText("");
+        this.personSurname.setText("");
+        this.personDni.setText("");
+
+        this.personName.setBorder(null);
+        this.personSurname.setBorder(null);
+        this.personDni.setBorder(null);
+
+        this.personaInsert.setEnabled(false);
     }
 
     /**
@@ -32,20 +68,33 @@ public class PersonaView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         personSurname = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        modelTable = new javax.swing.JTable();
-        brandInsert = new javax.swing.JButton();
-        brandList = new javax.swing.JButton();
-        brandSave = new javax.swing.JButton();
+        personaTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         personDni = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         personRole = new javax.swing.JComboBox<>();
+        personaInsert = new javax.swing.JButton();
+        personaSave = new javax.swing.JButton();
+        personaDelete = new javax.swing.JButton();
+        personaList = new javax.swing.JButton();
+
+        personName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                personNameKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Nombre");
 
         jLabel4.setText("Apellido");
 
-        modelTable.setModel(new javax.swing.table.DefaultTableModel(
+        personSurname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                personSurnameKeyReleased(evt);
+            }
+        });
+
+        personaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -60,7 +109,7 @@ public class PersonaView extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -71,24 +120,30 @@ public class PersonaView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(modelTable);
-
-        brandInsert.setText("Insertar");
-        brandInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brandInsertActionPerformed(evt);
-            }
-        });
-
-        brandList.setText("Listar");
-
-        brandSave.setText("Guardar Cambios");
+        jScrollPane1.setViewportView(personaTable);
 
         jLabel1.setText("DNI");
+
+        personDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                personDniKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Rol");
 
         personRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Tecnico" }));
+
+        personaInsert.setText("Insertar");
+        personaInsert.setEnabled(false);
+
+        personaSave.setText("Guardar Cambios");
+        personaSave.setEnabled(false);
+
+        personaDelete.setText("Borrar");
+        personaDelete.setEnabled(false);
+
+        personaList.setText("Listar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -101,13 +156,14 @@ public class PersonaView extends javax.swing.JPanel {
                     .addComponent(personName)
                     .addComponent(jLabel4)
                     .addComponent(personSurname)
-                    .addComponent(brandInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(brandList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(brandSave, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(personDni)
                     .addComponent(jLabel2)
-                    .addComponent(personRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(personRole, 0, 182, Short.MAX_VALUE)
+                    .addComponent(personaList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(personaSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(personaInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(personaDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
@@ -135,11 +191,13 @@ public class PersonaView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(personRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(brandInsert)
+                        .addComponent(personaInsert)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(brandSave)
+                        .addComponent(personaSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(brandList)))
+                        .addComponent(personaDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(personaList)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -165,25 +223,46 @@ public class PersonaView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void brandInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandInsertActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_brandInsertActionPerformed
+    private void personNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_personNameKeyReleased
+        String valor = this.personName.getText();
+
+        this.personName.setBorder(ValidacionesHelper.validarStringLongitudSinNumeros(valor) ? greenBorder : redBorder);
+
+        this.validarCamposParaInsercion();
+    }//GEN-LAST:event_personNameKeyReleased
+
+    private void personSurnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_personSurnameKeyReleased
+        String valor = this.personSurname.getText();
+
+        this.personSurname.setBorder(ValidacionesHelper.validarStringLongitudSinNumeros(valor) ? greenBorder : redBorder);
+
+        this.validarCamposParaInsercion();
+    }//GEN-LAST:event_personSurnameKeyReleased
+
+    private void personDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_personDniKeyReleased
+        String valor = this.personDni.getText();
+
+        this.personDni.setBorder(ValidacionesHelper.validarDni(valor) ? greenBorder : redBorder);
+
+        this.validarCamposParaInsercion();
+    }//GEN-LAST:event_personDniKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brandInsert;
-    private javax.swing.JButton brandList;
-    private javax.swing.JButton brandSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable modelTable;
-    private javax.swing.JTextField personDni;
-    private javax.swing.JTextField personName;
-    private javax.swing.JComboBox<String> personRole;
-    private javax.swing.JTextField personSurname;
+    public javax.swing.JTextField personDni;
+    public javax.swing.JTextField personName;
+    public javax.swing.JComboBox<String> personRole;
+    public javax.swing.JTextField personSurname;
+    public javax.swing.JButton personaDelete;
+    public javax.swing.JButton personaInsert;
+    public javax.swing.JButton personaList;
+    public javax.swing.JButton personaSave;
+    public javax.swing.JTable personaTable;
     // End of variables declaration//GEN-END:variables
 }

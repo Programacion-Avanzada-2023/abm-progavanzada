@@ -4,6 +4,7 @@
  */
 package vista.subViews;
 
+import controlador.ValidacionesHelper;
 import java.awt.Color;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
@@ -192,10 +193,6 @@ public class MarcaView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_brandDeleteActionPerformed
 
-    private boolean validarCamposTexto(String texto) {
-        return Pattern.matches("[A-Za-z -]+", texto) && texto.length() < 32;
-    }
-    
     public void limpiarCampos() {
         this.brandName.setText("");
         this.brandOrigin.setText("");
@@ -209,7 +206,7 @@ public class MarcaView extends javax.swing.JPanel {
     private void validarCamposParaInsercion() {
         String name = this.brandName.getText(), origin = this.brandOrigin.getText();
         
-        boolean sonValidos = validarCamposTexto(name) && validarCamposTexto(origin);
+        boolean sonValidos = ValidacionesHelper.validarStringLongitudSinNumeros(name) && ValidacionesHelper.validarStringLongitudSinNumeros(origin);
         
         this.brandInsert.setEnabled(sonValidos);
     }
@@ -217,7 +214,7 @@ public class MarcaView extends javax.swing.JPanel {
     private void brandNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brandNameKeyReleased
         String valor = this.brandName.getText();
                 
-        this.brandName.setBorder(validarCamposTexto(valor) ? greenBorder : redBorder);
+        this.brandName.setBorder(ValidacionesHelper.validarStringLongitudSinNumeros(valor) ? greenBorder : redBorder);
         
         this.validarCamposParaInsercion();
     }//GEN-LAST:event_brandNameKeyReleased
@@ -225,7 +222,7 @@ public class MarcaView extends javax.swing.JPanel {
     private void brandOriginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brandOriginKeyReleased
         String valor = this.brandOrigin.getText();
                 
-        this.brandOrigin.setBorder(validarCamposTexto(valor) ? greenBorder : redBorder);
+        this.brandOrigin.setBorder(ValidacionesHelper.validarStringLongitudSinNumeros(valor) ? greenBorder : redBorder);
         
         this.validarCamposParaInsercion();
     }//GEN-LAST:event_brandOriginKeyReleased

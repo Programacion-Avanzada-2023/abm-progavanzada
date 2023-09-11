@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -63,8 +62,10 @@ public class MarcaController implements ActionListener {
                     "Confirme el borrado",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE);
-            
-            if (result != 0) return;
+
+            if (result != 0) {
+                return;
+            }
 
             this.borrarFila();
             return;
@@ -79,27 +80,6 @@ public class MarcaController implements ActionListener {
         this.view.brandDelete.addActionListener(this);
     }
 
-    private boolean validarCampoString(String texto) {
-        return validarSoloLetras(texto) && validarLongitudTexto(texto, 32);
-    }
-
-    private boolean validarSoloLetras(String texto) {
-        return Pattern.matches("[A-Za-z -]+", texto);
-    }
-
-    /**
-     * Valida que un campo de string tenga menos de cierta cantidad de
-     * caracteres
-     *
-     * @param texto Texto a validar
-     * @param cant Cantidad de caracteres maxima
-     *
-     * @returns boolean Esta bien o no.
-     */
-    private boolean validarLongitudTexto(String texto, int cant) {
-        return texto.length() < cant;
-    }
-
     /**
      * Borra las entradas de la tabla y rellena con nuevas marcas.
      *
@@ -111,6 +91,9 @@ public class MarcaController implements ActionListener {
         for (Marca marca : marcas) {
             model.addRow(new Object[]{marca.getId(), marca.getNombre(), marca.getOrigen()});
         }
+
+        this.view.brandDelete.setEnabled(true);
+        this.view.brandSave.setEnabled(true);
     }
 
     /**
@@ -134,7 +117,7 @@ public class MarcaController implements ActionListener {
             int id = Integer.parseInt(model.getValueAt(i, 0).toString());
             String nombre = model.getValueAt(i, 1).toString(), origen = model.getValueAt(i, 2).toString();
 
-            if (validarCampoString(nombre) && validarCampoString(origen)) {
+            if (ValidacionesHelper.validarStringLongitudSinNumeros(nombre) && ValidacionesHelper.validarStringLongitudSinNumeros(origen)) {
                 Marca fila = new Marca(id, nombre, origen);
                 marcas.add(fila);
             } else {
@@ -158,7 +141,7 @@ public class MarcaController implements ActionListener {
         String nombre = this.view.brandName.getText(), origen = this.view.brandOrigin.getText();
 
         // Si no son validos los valores, no dejarlo
-        if (!validarCampoString(nombre) || !validarCampoString(origen)) {
+        if (!ValidacionesHelper.validarStringLongitudSinNumeros(nombre) || !ValidacionesHelper.validarStringLongitudSinNumeros(origen)) {
             JOptionPane.showMessageDialog(null, "Tienes errores en los campos, corrigelos y luego intenta insertar.");
             return;
         }
